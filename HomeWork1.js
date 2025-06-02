@@ -463,5 +463,55 @@ function sortTitles(titles) {
 
 sortTitles(titles);
 
+// ------- 1.6. Promises. Callbacks. -------
+console.log("\n1.6. Promises. Callbacks: \n");
+
+// Promises are used to handle asynchronous operations. it is like a placeholder fror a value that will be available in the future.
+// A promise has three states: 
+// - pending -- when the operation is still running, 
+// - fulfilled -- when the operation was completed succesfully
+// - rejected -- when the operation failed
+
+function downloadSong(songName) {
+    const songDownloadPromise = new Promise((resolve, reject) => {
+        console.log(`Downloading song: ${songName}...`);
+        
+        setTimeout(() => {
+            const isSuccessful = Math.random() > 0.2; // 80% success
+            if (isSuccessful) {
+                resolve(`Song ${songName} downloaded successfully!`);
+            } else {
+                reject(`Failed to download song ${songName}.`);
+            }
+        }, 2000); // 2 sec download time
+
+    });
+    return songDownloadPromise;
+}
+// downloadSong("Empty Walls").then(succesMessage => console.log(succesMessage))
+//     .catch(errorMessage => console.error(errorMessage));
+
+// A callback is a function that is passed as an argument to another funciton.
+// Callbacks are used in asynchronous functions, where one function has to wait for another function.
+function fetchData(callback) {
+    console.log("Fetching data...");
+    setTimeout(() => {
+        const data = { name: "John", age: 30 };
+        callback(data);
+    }, 2000); // 2 sec fetch time
+}
+
+fetchData((data) => {
+    console.log("Data received:");
+    console.log(data);
+}); 
+
+// We use promises instead of callbacks because they provide a cleaner and more readable way to handle asynchronous operations.
+// Promises allow us to chain multiple asynchronous operations together, making the code easier to read and maintain.
+// Promises also provide better error handling, as we can catch errors at any point in the chain using .catch() method.
+// In addition, promises can be used with async/await syntax, which makes the code look synchronous and easier to read.
+// Callbacks are good to use when we have a simple asynchronous operation that does not require chaining or error handling.
+
+
 
 
