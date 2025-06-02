@@ -588,12 +588,31 @@ counter.increment(); // Count: 2
 counter.decrement(); // Count: 1
 counter.reset(); // Count reset to: 0
 
-
-// ------ 1.9. useState. useRef -------
+// ------ 1.9. useState. useRef. ------
 console.log("\n1.9. useState. useRef: \n");
-// useState is a React hook that allows us to add state to a function component. 
-// state refers todata or properties that need to be tracking in an application
-// useRef is a React hook that allows us to create a mutable reference that persists for the lifetime of the component.
-// useState is used to create a state variable and a function to update it.
+
+// useState is a React hook that allows us to add state to a functional component.
+// it returns an array with 2 elements: the current state and a function to update it.
+// it is used to manage and update component-level state variables within functional components.
+
+import React, { useState } from 'react';
+function chooseFavColor() {
+    const [color, setColor] = useState("blue");
+
+    const changeColor = (newColor) => {
+        setColor(newColor); // update the state with the new color
+    };
+    return (
+        <div>
+            <h1>My favorite color is: {color}</h1>
+            <button onClick={() => changeColor("red")}>Change to Red</button>
+            <button onClick={() => changeColor("green")}>Change to Green</button>
+            <button onClick={() => changeColor("blue")}>Change to Blue</button>
+        </div>
+    );
+}
+chooseFavColor();
+
+
 
 
