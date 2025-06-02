@@ -587,3 +587,13 @@ counter.increment(); // Count: 1
 counter.increment(); // Count: 2
 counter.decrement(); // Count: 1
 counter.reset(); // Count reset to: 0
+
+
+// ------ 1.9. useState. useRef -------
+console.log("\n1.9. useState. useRef: \n");
+// useState is a React hook that allows us to add state to a function component. 
+// state refers todata or properties that need to be tracking in an application
+// useRef is a React hook that allows us to create a mutable reference that persists for the lifetime of the component.
+// useState is used to create a state variable and a function to update it.
+
+
