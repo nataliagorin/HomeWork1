@@ -137,3 +137,159 @@ function changePassword(password) {
     console.log("Your new credentials are: " + JSON.stringify(newCredentials) + "\n");
 }
 changePassword("newPassword123");
+
+// ------- 1.4. Objects: How to iterate over an object, deep copy. ------.
+// Object are containers for properties and methods. Properties are named values and can be primitives (string, number, boolean, null, undefined, symbol, bigint), functions or even other objects. 
+// methods are functions that are properties of an object.
+
+// 
+console.log("\n1.4. Objects: How to iterate over an object, deep copy: \n");
+
+const festivals = [
+    {
+        name: "Summer Well", 
+        location: "Romania",
+        year: 2025,
+        lineup: {
+            day1: ["Snow Patrol", "Seafret", "Isabel LaRosa", "Ari Abdul"],
+            day2: ["Son Mieux", "Saint Levant", "Balu Brigada", "Chloe Slater"],
+            day3: ["Empire of the Sun", "Palaye Royale", "La Femme", "Banners"]
+        }
+    }, 
+    {
+        name: "Sziget Festival",
+        location: "Hungary",
+        year: 2025,
+        lineup: {
+            day1: ["Charli XCX", "Don Diablo", "Empire of the Sun", "Little Simz"],
+            day2: ["Shawn Mendes", "Boris Brejcha", "Justice", "Nelly Furtado"],
+            day3: ["A$AP Rocky", "Amelie Lens", "Caribou", "Michael Kiwanuka"],
+            day4: ["Anyma", "Adriatique", "FKA Twigs", "Sevdaliza"],
+            day5: ["Fat Dog", "Fjaak", "Hanabie", "Isabel LaRosa"],
+            day6: ["Chappell Roan", "Portugal. The Man", "The Last Dinner Party", "Bou"]
+        }
+    }, 
+    {
+        name: "Primavera Sound",
+        location: "Spain",
+        year: 2025,
+        lineup: {
+            day1: ["Llum", "Hinds", "La Casa Azul", "Caribou"],
+            day2: ["Magdalena Bay", "FKA Twigs", "Charlie XCX", "Brutalismus 3000"],
+            day3: ["HAIM", "Beach House", "Sabrina Carpenter", "Wet Leg"],
+            day4: ["Fontaines D.C.", "Black Country, New Road", "Chappell Roan", "LCD Soundsystem"]
+        }
+    }
+
+];
+
+
+function iterateFestivals(festivals, type) {
+    if (type == "for...in") {
+        // iterating over an object using for..in loop is means to loop through all enumerable properties of the object
+        console.log("Iterating with for...in loop: ");
+        for (let festival in festivals) {
+            console.log(`Festival: ${festivals[festival].name}`);
+            console.log(`Location: ${festivals[festival].location}`);
+            console.log(`Year: ${festivals[festival].year}`);
+            console.log("Lineup:");
+            for (let day in festivals[festival].lineup) {
+                console.log(`  ${day}: ${festivals[festival].lineup[day].join(", ")}`);
+            }
+            console.log("\n");
+        } 
+    } else if (type == "Object.keys()") {
+        // Object.keys() method was introduces in ES6. It takes the object that we want to loop over as argument and returns an array of property names also known as keys.
+        console.log("Iterating with Object.keys(): \n");
+        for (let festival of Object.keys(festivals)) {
+            let keys = Object.keys(festivals[festival]);
+            console.log(keys);
+        }
+        console.log();
+    } else if (type == "Object.values()") {
+        // Object.values() method was introduced in ES8 and it is similar to Object.keys(). It takes the object that we want to loop over as argument and returns an array containing the values of each property.
+        console.log("Iterating with Object.values(): \n");
+        for (let festival of Object.values(festivals)) {
+            let values = Object.values(festival);
+            console.log(values);
+        }
+        console.log();
+        
+    } else if (type == "Object.entries()") {
+        // Object.entries() method was introduced in ES8. It takes the object that we want to loop over as argument and returns an array of key-value pairs.
+        for (let festival of Object.entries(festivals)) {
+            for (let [key, value] of Object.entries(festival[1])) {
+                if (key === "lineup") {
+                    console.log(`lineup:`);
+                    for (let day in value) {
+                        console.log(`  ${day}: ${value[day]}`);
+                    }
+                } else {
+                    console.log(`${key}: ${value}`);
+                }
+            }
+            console.log("\n");
+        }
+        
+    }  
+    
+}
+//iterateFestivals(festivals, "for...in");
+//iterateFestivals(festivals, "Object.keys()");
+//iterateFestivals(festivals, "Object.values()");
+//iterateFestivals(festivals, "Object.entries()");
+
+
+// deep copy of an object is a copy whose properties do not share the same reference as the original source object. 
+// So let's say we want to create a deep copy for the object "song" that contains the name of the song, artist, album, and release year.
+// If we change something in the copy or the original object, we can be assured you're not causing the other object to change too. 
+const song = {
+    name: "Dancing Queen",
+    artist: "ABBA",
+    album: "Arrival",
+    releaseYear: 1976
+}
+
+// deep copy with JSON.parse(JSON.stringify())
+// This method converts the object to a JSON string and then parses it back to an object, effectively creating a deep copy.
+const songCopyJSON = JSON.parse(JSON.stringify(song));
+console.log("Original song object: ", song);
+console.log("Deep copy of the song object with JSON.parse(JSON.stringify()): ", songCopyJSON);
+
+songCopyJSON.name = "Super Trouper";
+
+console.log("After changing the name of the song in the original: ", song);
+console.log("After changing the name of the song in the copy: ", songCopyJSON);
+
+// deep copy with structuredClone() method
+// structuredClone() is a built-in method that creates a deep copy of an object, including its prototype chain and properties.
+const songCopyStructured = structuredClone(song);
+console.log("Original song object: ", song);
+console.log("Deep copy of the song object with structuredClone(): ", songCopyStructured);
+
+songCopyStructured.name = "Fernando";
+
+console.log("After changing the name of the song in the original: ", song); // the original object remains unchanged
+console.log("After changing the name of the song in the copy: ", songCopyStructured);
+
+// deep copy withh cloneDeep() method
+// cloneDeep() is a method from the Lodash library that creates a deep copy of an object, including its prototype chain and properties.
+const _  = require('lodash');
+const songCopyLodash = _.cloneDeep(song);
+console.log("Original song object: ", song);
+console.log("Deep copy of the song object with _.cloneDeep(): ", songCopyLodash);
+
+songCopyLodash.name = "Money, Money, Money";
+
+console.log("After changing the name of the song in the original: ", song);
+console.log("After changing the name of the song in the copy: ", songCopyLodash);
+
+// so for deep copies we can say that song and songCopyLodash are two different objects, their properties have the same names in the sam order,
+// the values of their properties are deep copies for each other, their prototype chains are structurally equivalent.
+
+
+
+
+
+
+
