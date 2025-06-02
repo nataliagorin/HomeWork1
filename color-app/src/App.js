@@ -16,3 +16,7 @@ function App() {
 
 
 export default App;
+
+// useState is a React hook that allows us to add state to a functional component.
+// it returns an array with 2 elements: the current state and a function to update it.
+// it is used to manage and update component-level state variables within functional components.
