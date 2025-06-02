@@ -287,9 +287,181 @@ console.log("After changing the name of the song in the copy: ", songCopyLodash)
 // so for deep copies we can say that song and songCopyLodash are two different objects, their properties have the same names in the sam order,
 // the values of their properties are deep copies for each other, their prototype chains are structurally equivalent.
 
+// ------- 1.5. Arrays - accessor, iteration, and mutator methods (which they are, how to use them) -------
+console.log("\n1.5. Arrays - accessor, iteration, and mutator methods: \n");
+// Arrays are is a data structure that allows us to store multiple vals in a single variable, ordered by index (starting from 0).
+// They are dynamic, meaning we can add or remove elements, 
+// they are heterogeneous, meaning we can store different data types 
+
+// Accesor methods are used to access elements in the array without modifying it.
+// They return a new array or a single value, but they do not change the original array.
+console.log("1.5.1. Accessor methods: \n");
+// concat() method is used to merge/join 2 or more arrays into one new array.
+const wildlife = ["tiger", "cheetah"];
+const pets = ["cat", "dog", "hamster"];
+const animals = wildlife.concat(pets);
+console.log("Animals array after using concat(): ", animals);
+
+// includes() method is used to check if an array contains a specific element.
+const fruitSalad = ["apple", "banana", "orange", "kiwi"];
+const hasBanana = fruitSalad.includes("banana");
+console.log(`Does the fruit salad contain banana? ${hasBanana}`);
+
+// indexOf() method is used to find the index of the first occurrence of a element in the array.
+const garderobe = ["shirt", "pants", "shoes", "hat"];
+const indexOfShoes = garderobe.indexOf("shoes");
+console.log(`The index of shoes in the garderobe array is: ${indexOfShoes}`);
+
+// join() is used to join all elements of the array into a string, separated by a specified separator.
+const colors = ["green", "white", "red"];
+const flag = colors.join(" - ");
+console.log(`The flag of Italy is: ${flag}`);
 
 
+// slice() methos is used to extract a portion of the array
+const numbers = [1, 2, 3, 4, 5, 6];
+const slicedNumbers = numbers.slice(2, 5); // extracts elements from index 2 to index 4 (not including index 5)
+console.log(`Sliced numbers from index 2 to 4: ${slicedNumbers}`);
 
+// toString() method is used to convert the array to a string.
+const tvShows = ["Breaking Bad", "Game of Thrones", "Stranger Things"];
+const tvShowsString = tvShows.toString();
+console.log(`TV shows as a string: ${tvShowsString}`);
+
+// Iteration methods are used to operate on each element of the array one at a time
+console.log("\n1.5.2. Iteration methods: \n");
+
+// forEach() is used to execute a function for each element in the array.
+// It does not return a new array, it just executes the function for each element, meaning that the original array will be modified
+
+function painterWithLetterV() {
+    const painters = ["Van Gogh", "Picasso", "Monet", "Vermeer"];
+    painters.forEach(painter => {
+        if (painter[0] === "V") {
+            console.log(`Painter's name starts with V: ${painter}`);
+        }
+    });
+}
+painterWithLetterV();
+
+
+// map() is used to create a new array by applying a function to each element in the array.
+const names = ["emma", "oliver", "alex"];
+function capsNames(names) {
+    const caps = names.map(name => name.toUpperCase());
+    console.log(`Names in uppercase: ${caps}`);
+}
+capsNames(names);
+
+// filter() is used to create a new array with elements that pass a test
+const numbersArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+function evenNumbers(numbers) {
+    const evens = numbers.filter(number => number % 2 === 0);
+    console.log(`Even numbers: ${evens}`);
+}
+evenNumbers(numbersArray);
+
+// reduce() is used to shrink an array to a single value by applyig a function 
+const prices = [10, 100, 50, 1000, 200];
+function totalPrice(prices) {
+    const total = prices.reduce((summ, currentPrice) => summ + currentPrice, 0);
+    console.log(`Total price: ${total}`);
+}
+
+totalPrice(prices);
+
+// find() method returns the first value in an array that passes a given test
+const ages = [10, 18, 21, 25, 30, 35];
+function findFirstAdult(ages) {
+    const firstAdult = ages.find(age => age >= 18);
+    console.log(`The first adult age is: ${firstAdult}`);
+}
+findFirstAdult(ages);
+
+// findIndex() method returns the index of the first value in an array that passes a given test
+function findIndexOfFirstAdult(ages) {
+    const index = ages.findIndex(age => age >= 18);
+    console.log(`The index of the first adult age is: ${index}`);
+}
+findIndexOfFirstAdult(ages);
+
+// Mutator methods are used to change the original array. 
+console.log("\n1.5.3. Mutator methods: \n");
+
+
+// pop() method is used to remove the last element from the array and returns it without the last element. 
+const vegetables = ["carrot", "potato", "onion", "cabbage"];
+function removeLastVegetable(vegetables) {
+    const lastVegetable = vegetables.pop();
+    console.log(`Removed last vegetable: ${lastVegetable}`);
+    console.log(`Vegetables after pop(): ${vegetables}`);
+}
+removeLastVegetable(vegetables);
+
+// push() is used to add one or more elements at the end of the array
+const groceries = ["milk", "bread", "eggs"];
+function addGroceriesList(groceries) {
+    groceries.push("butter", "apples", "bananas");
+    console.log(`Groceries after push(): ${groceries}`);
+}
+addGroceriesList(groceries);
+
+// shift() removes the first element from the array and returns it
+const songs = ["Imagine", "Bohemian Rhapsody", "Hotel California"];
+function removeFirstSong(songs) {
+    const firstSong = songs.shift();
+    console.log(`Removed first song: ${firstSong}`);
+    console.log(`Songs after shift(): ${songs}`);
+}
+removeFirstSong(songs);
+
+// unshift() adds one or more elements a the beginning of the array
+function addFirstSong(songs) {
+    songs.unshift("Hey Jude", "Stairway to Heaven");
+    console.log(`Songs after unshift(): ${songs}`);
+}
+addFirstSong(songs);
+
+// splice() is used to add or remove elements from the array at a specific position
+// it takes 3 paramaters: the index number to start at, the number of items to remove, and items to add (optional).
+const fishes = ["goldfish", "betta", "guppy", "neon tetra"];
+function removeFishes(fishes) {
+    // remove 1 element at index 2 
+    fishes.splice(2, 1);
+    console.log(`Fishes after removing: ${fishes}`);
+}
+removeFishes(fishes);
+
+function addFishes(fishes) {
+    // add 2 new elements at index 2
+    fishes.splice(2, 0, "clownfish", "angelfish");
+    console.log(`Fishes after adding: ${fishes}`);
+}
+addFishes(fishes);
+
+
+// reverse() is used to reverse the order of the elements
+const numbersToReverse = [1, 2, 3, 4, 5];
+function reverseNumbers(numbers) {
+    numbers.reverse();
+    console.log(`Numbers after reverse(): ${numbers}`);
+}
+reverseNumbers(numbersToReverse);
+
+// fill() is used to fill all elements of an array with static value
+const candy = ["chocolate", "gummy bears", "lollipops", "jelly beans"];
+candy.fill("chocolate");
+console.log(`Candy after fill(): ${candy}`);
+
+
+// sort is used to sort the elements of an array in place and returns the sorted array
+const titles = ["The Great Gatsby", "Anne of Green Gables", "To Kill a Mockingbird", "1984", "Pride and Prejudice"];
+function sortTitles(titles) {
+    titles.sort();
+    console.log(`Titles after sort(): ${titles}`);
+}
+
+sortTitles(titles);
 
 
 
