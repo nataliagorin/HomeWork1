@@ -513,5 +513,77 @@ fetchData((data) => {
 // Callbacks are good to use when we have a simple asynchronous operation that does not require chaining or error handling.
 
 
+// ------ 1.7. Async/Await. ------
+console.log("\n1.7. Async/Await: \n");
+
+// async/await is a syntax that allows us to write asynchronous code in a synchronous way. it is built on top of promises.
+// An async function is a function that returns a promise which will be  resolved with the value returned by the async function, or rejected with an excwption if uncaught.
+// this type of funciton can contain zero or more await expressions.
+// Await expressions make promise-returning functions behave as though they're synchronous by suspending execution until the returned promise is fulfilled or rejected
 
 
+async function fetchDataAsync() {
+    console.log("Fetching data asynchronously...");
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const data = { name: "Jane", age: 25 };
+            resolve(data);
+        }, 2000); // 2 sec fetch time
+    });
+}
+
+async function displayData() {
+    try {
+        const data = await fetchDataAsync(); // wait for the promise to be resolved
+        console.log("Data received:");
+        console.log(data);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+}
+displayData();
+
+
+
+// ------ 1.8. Closures. ------
+console.log("\n1.8. Closures: \n");
+// a closure is a function that has access to its own scope, the outer function's scope, and the global scope.
+// it works like a function inside another function
+function outerFunction() {
+    const outerVariable = "I am from the outer function!";
+
+    function innerFunction() {
+        console.log(outerVariable); // inner function has access to the outer variable
+    }
+    return innerFunction; // return the inner function
+}
+
+const closureFunction = outerFunction(); // call the outer function to get the inner function
+closureFunction(); // call the inner function, which has access to the outer variable
+// closures are useful for creating private variables and functions, as well as for creating functions that can remember their state.
+// they are also used in event handlers, callbacks, and asynchronous operations to maintain access to the outer scope.
+// Example of closure with a counter
+function createCounter() {
+    let count = 0; // private variable
+
+    return {
+        increment: function() {
+            count++;
+            console.log(`Count: ${count}`);
+        },
+        decrement: function() {
+            count--;
+            console.log(`Count: ${count}`);
+        },
+        reset: function() {
+            count = 0;
+            console.log(`Count reset to: ${count}`);
+        }
+    };
+}
+
+const counter = createCounter(); // create a counter instance
+counter.increment(); // Count: 1
+counter.increment(); // Count: 2
+counter.decrement(); // Count: 1
+counter.reset(); // Count reset to: 0
